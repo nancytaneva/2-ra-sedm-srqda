@@ -2,28 +2,44 @@
 // годината спрямо която определяме какъв ще бъде типът на потребителя:
 const CONFIGURATION_CUSTOMER_YEAR = 1965;
 
-var customerCardFirstDigit  = 0;
-var customerCardSecondDigit = 0;
-var customerCardThirdDigit  = 0;
-var customerCardFourthDigit = 0;
-var customerCardFifthDigit  = 0;
-var customerCardSixthDigit  = 0;
+var customCardFirstDigit  = 0;
+var customCardSecondDigit = 0;
+var customCardThirdDigit  = 0;
+var customCardFourthDigit = 0;
+var customCardFifthDigit  = 0;
+var customCardSixthDigit  = 0;
 
 
 // Първа цифра
-const customerYearOfBirth = 1992;
+function generateFirstDigit() {
+    var generatedFirstDigit  = 0;
 
-do {
-    if(customerYearOfBirth > CONFIGURATION_CUSTOMER_YEAR) {
-        const currentYear               = (new Date()).getFullYear();
-        const customerAge               = currentYear - customerYearOfBirth;
-        const customerRandomCoefficient = Math.ceil(Math.random()*(7 - 1) + 1);
-        customerCardFirstDigit = parseInt(customerAge/customerRandomCoefficient);
-    }
-} while(customerCardFirstDigit % 2 == 0)
-
-if(customerYearOfBirth < CONFIGURATION_CUSTOMER_YEAR) {
+    const customerYearOfBirth = 1955;
+    const currentYear               = (new Date()).getFullYear();
+    const customerAge               = currentYear - customerYearOfBirth;
     
+    function getFirstDigit() {
+        const customerRandomCoefficient = Math.ceil(Math.random()*(7 - 1) + 1);
+        generatedFirstDigit = parseInt(customerAge/customerRandomCoefficient);
+    
+        return generatedFirstDigit;
+    }
+    
+    if(customerYearOfBirth > CONFIGURATION_CUSTOMER_YEAR) {
+        do {
+                generatedFirstDigit = getFirstDigit();
+        } while(isProcessable(generatedFirstDigit))
+    }
+    
+    if(customerYearOfBirth < CONFIGURATION_CUSTOMER_YEAR) {
+        do {
+            generatedFirstDigit = getFirstDigit();
+        } while((generatedFirstDigit % 2 == 0) || (generatedFirstDigit >= 10))
+    }
+    
+    return generatedFirstDigit;    
 }
 
-console.log(`${customerCardFirstDigit}`);
+
+
+// Втора цифра:
